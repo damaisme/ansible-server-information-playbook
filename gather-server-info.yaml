@@ -1,0 +1,38 @@
+---
+- name: Gather server information
+  hosts: all
+  gather_facts: yes
+
+  vars:
+    csv_path: .
+    csv_filename: "report_{{ ansible_date_time.date }}.csv"
+    headers: Hostname,IP,CPU,Memory,Disk,OS
+
+  tasks:
+  - name: Gather information
+    set_fact:
+      cpu: "{{ ansible_processor_vcpus }}"
+      memory: "{{ (ansible_memtotal_mb / 1024) | round (2) }} GB"
+      os: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
+      ip_address: "{{ ansible_default_ipv4.address }}"
+      disk: "{{ ansible_devices['nvme0n1']['size'] }}"
+
+  - name: Save CSV headers
+    ansible.builtin.lineinfile:
+      dest: "{{ csv_path }}/{{ csv_filename }}"
+      line: "{{ headers }}"
+      create: true
+      state: present
+    delegate_to: localhost
+    run_once: true
+
+  - name: CSV - Get IOS devices facts
+    set_fact:
+      csv_content: "{{ inventory_hostname }}, {{ ip_address }} , {{ cpu }} , {{ memory }}, {{ disk }} , {{ os }}" 
+
+  - name: CSV - Write information into .csv file
+    lineinfile:
+      insertafter: EOF
+      dest: "{{ csv_path }}/{{ csv_filename }}"
+      line: "{{ csv_content }}" 
+    delegate_to: localhost

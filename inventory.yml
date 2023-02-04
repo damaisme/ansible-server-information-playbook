@@ -1,0 +1,14 @@
+[xyz_dev]
+xyz-app-dev-1 ansible_host=1.2.3.4
+xyz-app-dev-2 ansible_host=2.3.4.5
+
+[xyz_prod]
+xyz-app-prod-1 ansible_host=7.8.9.0
+xyz-app-prod-2 ansible_host=7.8.9.1
+xyz-db-prod-1 ansible_host=7.8.9.2
+
+[all:vars]
+ansible_user=imad
+ansible_connection=ssh
+ansible_python_interpreter=/usr/bin/python3
+
