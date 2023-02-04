@@ -17,7 +17,7 @@ Edit the inventory file (inventory.ini) to specify the servers you want to gathe
 Run the script:
 
 ```
-ansible-playbook -i inventory.ini gather_server_info.yml
+ansible-playbook -i inventory.ini gather-server-info.yml
 ```
 The script will connect to each server specified in the inventory file, gather the information, and store the information in a CSV file (report_DATE.csv) in the current working directory.
 
