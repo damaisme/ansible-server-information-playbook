@@ -10,7 +10,7 @@ This Ansible script is designed to gather information about servers, including t
 ## Usage
 Clone the repository to your local machine:
 ```
-$ git clone https://github.com/amdadulbari/ansible-server-info.git
+git clone https://github.com/amdadulbari/ansible-server-info.git
 ```
 Edit the inventory file (inventory.ini) to specify the servers you want to gather information about.
 
