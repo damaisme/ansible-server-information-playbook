@@ -15,8 +15,7 @@
       memory: "{{ (ansible_memtotal_mb / 1024) | round (2) }} GB"
       os: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
       ip_address: "{{ ansible_default_ipv4.address }}"
-      disk: "{{ ansible_devices['nvme0n1']['size'] }}"
-
+      
   - name: Save CSV headers
     ansible.builtin.lineinfile:
       dest: "{{ csv_path }}/{{ csv_filename }}"
